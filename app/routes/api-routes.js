@@ -6,7 +6,7 @@ function newRequest(url) {
   return axios(`${url}`);
 }
 
-module.exports = async function (app, cheerio) {
+module.exports = function (app, cheerio) {
   //scraping site for information on products
   app.get("/scrape-sites", async (req, res) => {
     try {
