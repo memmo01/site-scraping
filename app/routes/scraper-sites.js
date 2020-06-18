@@ -1,4 +1,4 @@
-const cheerio = require("cheerio")
+const cheerio = require("cheerio");
 let companies = {
   dealsod: [],
   bestbuy: [],
@@ -6,13 +6,11 @@ let companies = {
   staples: [],
 };
 
-
-
 module.exports = {
   company: companies,
 
   dealsOfA: function (data) {
-    companies.dealsod = []
+    companies.dealsod = [];
     let $ = cheerio.load(data.data);
     $(".title").each(function () {
       //gathering text from webpage
@@ -44,30 +42,27 @@ module.exports = {
       if (descriptionTxt.indexOf("17.3") !== -1) {
         companies.bestbuy.push(stringCleanUp(priceTxt, descriptionTxt, url));
       }
-
     });
   },
 
   costcoSearch: function (data) {
     let $ = cheerio.load(data.data);
-    companies.costco = []
+    companies.costco = [];
     $(".product").each(function () {
-
       if ($(this).find(".description > a").text().indexOf("17.3") !== -1) {
         //gathering text from webpage
-        let descriptionTxt = $(this).find(".description > a").text()
-        let priceTxt = $(this).find(".price").text()
-        let url = $(this).find(".description > a").attr("href")
+        let descriptionTxt = $(this).find(".description > a").text();
+        let priceTxt = $(this).find(".price").text();
+        let url = $(this).find(".description > a").attr("href");
 
         companies.costco.push(stringCleanUp(priceTxt, descriptionTxt, url));
       }
     });
   },
 
-
   staplesSearch: function (data) {
     let $ = cheerio.load(data.data);
-    companies.staples = []
+    companies.staples = [];
 
     $(".list-type__tile_wrapper").each(function () {
       let url = `https://www.staples.com${$(this)
@@ -75,28 +70,28 @@ module.exports = {
         .attr("href")}`;
 
       //gathering text from webpage
-      let descriptionTxt = $(this).find(".list-type__product_tile_middle >a").text()
-      let priceTxt = $(this).find(".list-type__price").text()
-
+      let descriptionTxt = $(this)
+        .find(".list-type__product_tile_middle >a")
+        .text();
+      let priceTxt = $(this).find(".list-type__price").text();
 
       companies.staples.push(stringCleanUp(priceTxt, descriptionTxt, url));
     });
-  }
-}
-
+  },
+};
 
 // clean up numbers so they do not have dollar signs and commas. This will make it easier to sort prices low to high
 function stringCleanUp(priceTxt, itemTxt, url) {
   //take dollar sign out
-  let dollarSignSplit = priceTxt.split("$")
+  let dollarSignSplit = priceTxt.split("$");
   //take comma out
-  let commaRemove = dollarSignSplit[1].split(",").join("")
+  let commaRemove = dollarSignSplit[1].split(",").join("");
   //turn string to a number for sorting in javascript
-  let num = parseInt(commaRemove)
+  let num = parseInt(commaRemove);
   let items = {
     description: itemTxt,
     price: num,
     link: url,
   };
-  return items
+  return items;
 }
