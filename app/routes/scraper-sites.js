@@ -30,14 +30,14 @@ module.exports = {
   bestBuySearch: function (data) {
     companies.bestbuy = [];
     let $ = cheerio.load(data.data);
-    $(".sku-item").each(function () {
+    $(".title").each(function () {
       //gathering text from webpage
-      let descriptionTxt = $(this).find(".sku-header > a").text();
-      let priceTxt = $(this).find(".priceView-customer-price>.sr-only").text();
-      let url = `https://bestbuy.com${$(this)
-        .find(".sku-header > a")
-        .attr("href")}`;
-
+      let descriptionTxt = $(this).children("a").text();
+      let priceTxt = $(this)
+        .children(".for_text")
+        .children(".orange-caps")
+        .text();
+      let url = $(this).children("a").attr("href");
       //search for screen size 17.3
       if (descriptionTxt.indexOf("17.3") !== -1) {
         companies.bestbuy.push(stringCleanUp(priceTxt, descriptionTxt, url));

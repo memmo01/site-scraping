@@ -2,7 +2,7 @@ const scraperSite = require("./scraper-sites.js");
 const axios = require("axios");
 
 // api call to site
-function newRequest(url) {
+async function newRequest(url) {
   return axios(`${url}`);
 }
 
@@ -22,7 +22,7 @@ module.exports = function (app, cheerio) {
       let staple = await newRequest(
         "https://www.dealsofamerica.com/laptop-deals.php"
       );
-
+      console.log(BB);
       await scraperSite.bestBuySearch(BB);
       await scraperSite.dealsOfA(doa);
       await scraperSite.costcoSearch(costco);

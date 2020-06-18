@@ -10,7 +10,7 @@ const sortCategories = (data) => {
   let dealsOA;
   let costco;
   let staples;
-
+  console.log(data);
   for (let key in data) {
     switch (key) {
       case "dealsod":
@@ -25,7 +25,10 @@ const sortCategories = (data) => {
         break;
 
       case "bestbuy":
+        console.log("bb");
         sortPrice(data.bestbuy);
+        console.log(key);
+        console.log(data);
         bestbuy = createDisplay(data.bestbuy, "Best Buy", "bestbuy");
         break;
 
@@ -41,6 +44,7 @@ const sortCategories = (data) => {
     }
   }
 
+  console.log(bestbuy);
   let priceWatchContainer = document.getElementById("price-watch-container");
   priceWatchContainer.appendChild(dealsOA);
   priceWatchContainer.appendChild(costco);
@@ -66,7 +70,7 @@ const createDisplay = (company, comptitle, titleId) => {
     priceEl.setAttribute("class", "price");
     desciptEl.setAttribute("class", "desc-detail");
     linkEl.setAttribute("class", "deal-link");
-
+    console.log(item.description);
     newprice = `$${item.price.toLocaleString()}`;
     priceEl.textContent = newprice;
 
