@@ -2,6 +2,7 @@ fetch("/scrape-sites")
   .then((response) => response.json())
   .then((data) => {
     stopCount();
+    console.log("data");
     sortCategories(data);
   });
 
