@@ -24,6 +24,8 @@
   ## Usage
 
   Simply open up the browser at the localhost 8890 and the application will display the results.
+
+  ![node readme creation](./project_images/scrape.gif)
   
   
   

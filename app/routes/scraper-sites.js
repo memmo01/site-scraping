@@ -49,14 +49,12 @@ module.exports = {
     let $ = cheerio.load(data.data);
     companies.costco = [];
     $(".product").each(function () {
-      if ($(this).find(".description > a").text().indexOf("17.3") !== -1) {
-        //gathering text from webpage
-        let descriptionTxt = $(this).find(".description > a").text();
-        let priceTxt = $(this).find(".price").text();
-        let url = $(this).find(".description > a").attr("href");
+      //gathering text from webpage
+      let descriptionTxt = $(this).find(".description > a").text();
+      let priceTxt = $(this).find(".price").text();
+      let url = $(this).find(".description > a").attr("href");
 
-        companies.costco.push(stringCleanUp(priceTxt, descriptionTxt, url));
-      }
+      companies.costco.push(stringCleanUp(priceTxt, descriptionTxt, url));
     });
   },
 
