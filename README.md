@@ -27,7 +27,5 @@
 
   ![node readme creation](./project_images/scrape.gif)
   
-  ![node readme creation](./project_images/scrape.gif)
-  
   ## Collaborators
       Michael Emmons
