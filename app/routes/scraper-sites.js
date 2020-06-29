@@ -6,6 +6,9 @@ let companies = {
   staples: [],
 };
 
+// these methods take in site information and break it down to get text information on sites from specific class locations
+// the text data is then pushed to an array for usage later
+
 module.exports = {
   company: companies,
 

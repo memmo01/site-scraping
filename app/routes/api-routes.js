@@ -6,6 +6,7 @@ function newRequest(url) {
   return axios.get(`${url}`);
 }
 
+//make calls to the websites pages that contain the products being looked for.
 module.exports = async function (app, cheerio) {
   //scraping site for information on products
   app.get("/scrape-sites", async (req, res) => {
@@ -23,11 +24,13 @@ module.exports = async function (app, cheerio) {
         "https://www.staples.com/17-18-9--Laptops-Deals/cat_CL167289/00792-41gw7"
       );
 
+      // once the site information is retrieved, the data is sent to a function located in the scaper-sites.js to be sorted through
       scraperSite.dealsOfA(doa);
       scraperSite.bestBuySearch(BB);
       scraperSite.costcoSearch(costco);
       scraperSite.staplesSearch(staple);
 
+      // sends an object containing arrays if information for each company
       res.json(scraperSite.company);
     } catch (error) {
       console.log(error.message);

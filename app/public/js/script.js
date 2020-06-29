@@ -2,7 +2,6 @@ fetch("/scrape-sites")
   .then((response) => response.json())
   .then((data) => {
     stopCount();
-    console.log("data");
     sortCategories(data);
   });
 
@@ -11,12 +10,9 @@ const sortCategories = (data) => {
   let dealsOA;
   let costco;
   let staples;
-  console.log(data);
   for (let key in data) {
     switch (key) {
       case "dealsod":
-        console.log(true);
-
         sortPrice(data.dealsod);
         dealsOA = createDisplay(
           data.dealsod,
@@ -26,10 +22,7 @@ const sortCategories = (data) => {
         break;
 
       case "bestbuy":
-        console.log("bb");
         sortPrice(data.bestbuy);
-        console.log(key);
-        console.log(data);
         bestbuy = createDisplay(data.bestbuy, "Best Buy", "bestbuy");
         break;
 
@@ -45,7 +38,6 @@ const sortCategories = (data) => {
     }
   }
 
-  console.log(bestbuy);
   let priceWatchContainer = document.getElementById("price-watch-container");
   priceWatchContainer.appendChild(dealsOA);
   priceWatchContainer.appendChild(costco);
@@ -66,20 +58,23 @@ const createDisplay = (company, comptitle, titleId) => {
     let priceEl = document.createElement("div");
     let desciptEl = document.createElement("div");
     let linkEl = document.createElement("a");
+    let remove = document.createElement("div");
     let newprice;
 
     priceEl.setAttribute("class", "price");
     desciptEl.setAttribute("class", "desc-detail");
     linkEl.setAttribute("class", "deal-link");
-    console.log(item.description);
+    remove.classList.add("remove-btn");
     newprice = `$${item.price.toLocaleString()}`;
     priceEl.textContent = newprice;
 
     desciptEl.textContent = item.description;
+    remove.textContent = "X";
     linkEl.textContent = "See Deal";
     linkEl.setAttribute("href", item.link);
     linkEl.setAttribute("target", "_blank");
 
+    li.append(remove);
     li.appendChild(priceEl);
     li.appendChild(desciptEl);
     li.appendChild(linkEl);
@@ -110,6 +105,20 @@ const stopCount = () => {
   let loader = document.getElementsByClassName("container");
   loader[0].style.display = "none";
   clearInterval(runtime);
+};
+
+// remove deal onclick event
+
+document.addEventListener("click", function (e) {
+  let removeEl = e.srcElement.className;
+  if (removeEl === "remove-btn") {
+    removeItem(e);
+  }
+});
+
+// removes the parent element containing the pricing information to clean up view of options
+const removeItem = (e) => {
+  e.target.parentElement.remove();
 };
 
 //code for loading ... on sote load
